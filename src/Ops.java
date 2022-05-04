@@ -35,6 +35,15 @@ public class Ops {
         return result;
     }
 
+    // Row Addition using
+    // Row1 + aRow2
+    public Matrix rowReduce(Matrix pMatrix, int pRow1, double a, int pRow2) {
+        for (int y = 0; y <= pMatrix.getaColumns(); y++) {
+            pMatrix.setMatrixValue(pRow1, y, pMatrix.getMatrixValue(pRow1, y) + a * pMatrix.getMatrixValue(pRow2, y));
+        }
+        return pMatrix;
+    }
+
     public Matrix scalarMultiplication(double pScalar, Matrix pMatrix) {
         for (int i = 0; i <= pMatrix.getaRows(); i++) {
             for (int y = 0; y <= pMatrix.getaColumns(); y++) {
@@ -75,6 +84,27 @@ public class Ops {
         else {
             throw new RuntimeException("Matrices of incompatible sizes");
         }
+    }
+
+    // I find the determinant by finding the Upper form of the matrix, works for any kind, but gets increasingly
+    // slow for large n (basically n >= 4)
+    public double matrixDeterminant(Matrix pMatrix) {
+        if (pMatrix.getaRows() == pMatrix.getaColumns()) {
+            double result = 1;
+            for (int i = 0; i <= pMatrix.getaRows(); i++) {
+                for (int y = i + 1; y <= pMatrix.getaRows(); y++) {
+                    double factor = pMatrix.getMatrixValue(i - 1, i - 1) / pMatrix.getMatrixValue(y, i - 1);
+                    rowReduce(pMatrix, i, -factor, y);
+                }
+                result *= pMatrix.getMatrixValue(i, i);
+            }
+
+            return result;
+
+        } else {
+            throw new RuntimeException("Can only take determinants of square matrices");
+        }
+
     }
 
 
