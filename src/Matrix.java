@@ -46,6 +46,10 @@ public class Matrix {
         this.aMatrix[pRowIndex][pColumnIndex] = pValue;
     }
 
+    public double getMatrixValue(int pRowIndex, int pColumnIndex) {
+        return this.aMatrix[pRowIndex][pColumnIndex];
+    }
+
     public int getaColumns() {
         return aColumns;
     }
